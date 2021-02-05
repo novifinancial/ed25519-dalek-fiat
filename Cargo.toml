@@ -15,7 +15,7 @@ exclude = [ ".gitignore", "TESTVECTORS", "res/*" ]
 
 [dependencies.curve25519-dalek]
 git = "https://github.com/novifinancial/curve25519-dalek.git"
-branch = "fiat3"
+branch = "fiat4"
 version = "3"
 default-features = false
 
