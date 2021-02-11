@@ -19,13 +19,13 @@ use std::vec::Vec;
 use core::convert::TryFrom;
 use core::iter::once;
 
-use curve25519_dalek::constants;
-use curve25519_dalek::edwards::EdwardsPoint;
-use curve25519_dalek::scalar::Scalar;
-use curve25519_dalek::traits::IsIdentity;
-use curve25519_dalek::traits::VartimeMultiscalarMul;
+use curve25519_dalek_fiat::constants;
+use curve25519_dalek_fiat::edwards::EdwardsPoint;
+use curve25519_dalek_fiat::scalar::Scalar;
+use curve25519_dalek_fiat::traits::IsIdentity;
+use curve25519_dalek_fiat::traits::VartimeMultiscalarMul;
 
-pub use curve25519_dalek::digest::Digest;
+pub use curve25519_dalek_fiat::digest::Digest;
 
 use merlin::Transcript;
 

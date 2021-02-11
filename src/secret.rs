@@ -11,11 +11,11 @@
 
 use core::fmt::Debug;
 
-use curve25519_dalek::constants;
-use curve25519_dalek::digest::generic_array::typenum::U64;
-use curve25519_dalek::digest::Digest;
-use curve25519_dalek::edwards::CompressedEdwardsY;
-use curve25519_dalek::scalar::Scalar;
+use curve25519_dalek_fiat::constants;
+use curve25519_dalek_fiat::digest::generic_array::typenum::U64;
+use curve25519_dalek_fiat::digest::Digest;
+use curve25519_dalek_fiat::edwards::CompressedEdwardsY;
+use curve25519_dalek_fiat::scalar::Scalar;
 
 #[cfg(feature = "rand")]
 use rand::{CryptoRng, RngCore};

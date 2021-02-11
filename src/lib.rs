@@ -246,7 +246,7 @@ pub extern crate ed25519;
 
 #[cfg(all(feature = "alloc", not(feature = "std")))]
 extern crate alloc;
-extern crate curve25519_dalek;
+extern crate curve25519_dalek_fiat;
 #[cfg(all(any(feature = "batch", feature = "batch_deterministic"), any(feature = "std", feature = "alloc")))]
 extern crate merlin;
 #[cfg(any(feature = "batch", feature = "std", feature = "alloc", test))]
@@ -265,7 +265,7 @@ mod public;
 mod secret;
 mod signature;
 
-pub use curve25519_dalek::digest::Digest;
+pub use curve25519_dalek_fiat::digest::Digest;
 
 #[cfg(all(any(feature = "batch", feature = "batch_deterministic"), any(feature = "std", feature = "alloc")))]
 pub use crate::batch::*;

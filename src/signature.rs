@@ -12,8 +12,8 @@
 use core::convert::TryFrom;
 use core::fmt::Debug;
 
-use curve25519_dalek::edwards::CompressedEdwardsY;
-use curve25519_dalek::scalar::Scalar;
+use curve25519_dalek_fiat::edwards::CompressedEdwardsY;
+use curve25519_dalek_fiat::scalar::Scalar;
 use ed25519::signature::Signature as _;
 
 use crate::constants::*;

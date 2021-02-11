@@ -13,18 +13,13 @@ description = "Fast and efficient ed25519 EdDSA key generations, signing, and ve
 exclude = [ ".gitignore", "TESTVECTORS", "res/*" ]
 
 
-[dependencies.curve25519-dalek]
-git = "https://github.com/novifinancial/curve25519-dalek.git"
-branch = "fiat4"
-version = "3"
-default-features = false
-
 [package.metadata.docs.rs]
 # Disabled for now since this is borked; tracking https://github.com/rust-lang/docs.rs/issues/302
 # rustdoc-args = ["--html-in-header", ".cargo/registry/src/github.com-1ecc6299db9ec823/curve25519-dalek-0.13.2/rustdoc-include-katex-header.html"]
 features = ["nightly", "batch"]
 
 [dependencies]
+curve25519-dalek-fiat = { git = "https://github.com/novifinancial/curve25519-dalek.git", branch = "new-master", version = "0.1.0", default-features = false }
 ed25519 = { version = "1", default-features = false }
 merlin = { version = "2", default-features = false, optional = true }
 rand = { version = "0.7", default-features = false, optional = true }
@@ -52,9 +47,9 @@ harness = false
 
 [features]
 default = ["std", "rand", "u64_backend"]
-std = ["curve25519-dalek/std", "ed25519/std", "serde_crate/std", "sha2/std", "rand/std"]
-alloc = ["curve25519-dalek/alloc", "rand/alloc", "zeroize/alloc"]
-nightly = ["curve25519-dalek/nightly"]
+std = ["curve25519-dalek-fiat/std", "ed25519/std", "serde_crate/std", "sha2/std", "rand/std"]
+alloc = ["curve25519-dalek-fiat/alloc", "rand/alloc", "zeroize/alloc"]
+nightly = ["curve25519-dalek-fiat/nightly"]
 serde = ["serde_crate", "serde_bytes", "ed25519/serde"]
 batch = ["merlin", "rand"]
 # This feature enables deterministic batch verification.
@@ -62,7 +57,7 @@ batch_deterministic = ["merlin", "rand", "rand_core"]
 asm = ["sha2/asm"]
 # This features turns off stricter checking for scalar malleability in signatures
 legacy_compatibility = []
-fiat_u64_backend = ["curve25519-dalek/fiat_u64_backend"]
-u64_backend = ["curve25519-dalek/u64_backend"]
-u32_backend = ["curve25519-dalek/u32_backend"]
-simd_backend = ["curve25519-dalek/simd_backend"]
+fiat_u64_backend = ["curve25519-dalek-fiat/fiat_u64_backend"]
+u64_backend = ["curve25519-dalek-fiat/u64_backend"]
+u32_backend = ["curve25519-dalek-fiat/u32_backend"]
+simd_backend = ["curve25519-dalek-fiat/simd_backend"]

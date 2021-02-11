@@ -21,8 +21,8 @@ use serde_bytes::{Bytes as SerdeBytes, ByteBuf as SerdeByteBuf};
 
 pub use sha2::Sha512;
 
-use curve25519_dalek::digest::generic_array::typenum::U64;
-pub use curve25519_dalek::digest::Digest;
+use curve25519_dalek_fiat::digest::generic_array::typenum::U64;
+pub use curve25519_dalek_fiat::digest::Digest;
 
 use ed25519::signature::{Signer, Verifier};
 

@@ -12,12 +12,12 @@
 use core::convert::TryFrom;
 use core::fmt::Debug;
 
-use curve25519_dalek::constants;
-use curve25519_dalek::digest::generic_array::typenum::U64;
-use curve25519_dalek::digest::Digest;
-use curve25519_dalek::edwards::CompressedEdwardsY;
-use curve25519_dalek::edwards::EdwardsPoint;
-use curve25519_dalek::scalar::Scalar;
+use curve25519_dalek_fiat::constants;
+use curve25519_dalek_fiat::digest::generic_array::typenum::U64;
+use curve25519_dalek_fiat::digest::Digest;
+use curve25519_dalek_fiat::edwards::CompressedEdwardsY;
+use curve25519_dalek_fiat::edwards::EdwardsPoint;
+use curve25519_dalek_fiat::scalar::Scalar;
 
 use ed25519::signature::Verifier;
 
@@ -94,7 +94,7 @@ impl PublicKey {
     /// # Warning
     ///
     /// The caller is responsible for ensuring that the bytes passed into this
-    /// method actually represent a `curve25519_dalek::curve::CompressedEdwardsY`
+    /// method actually represent a `curve25519_dalek_fiat::curve::CompressedEdwardsY`
     /// and that said compressed point is actually a point on the curve.
     ///
     /// # Example
