@@ -1,19 +1,21 @@
-# ed25519-dalek [![](https://img.shields.io/crates/v/ed25519-dalek.svg)](https://crates.io/crates/ed25519-dalek) [![](https://docs.rs/ed25519-dalek/badge.svg)](https://docs.rs/ed25519-dalek) [![](https://travis-ci.org/dalek-cryptography/ed25519-dalek.svg?branch=master)](https://travis-ci.org/dalek-cryptography/ed25519-dalek?branch=master)
+# ed25519-dalek-fiat
+
+[![ed25519-dalek-fiat on crates.io](https://img.shields.io/crates/v/ed25519-dalek-fiat)](https://crates.io/crates/ed25519-dalek-fiat)
+[![Documentation (latest release)](https://docs.rs/ed25519-dalek-fiat/badge.svg)](https://docs.rs/ed25519-dalek-fiat/)
 
 Fast and efficient Rust implementation of ed25519 key generation, signing, and
 verification in Rust.
 
 # Documentation
 
-Documentation is available [here](https://docs.rs/ed25519-dalek).
+Documentation is available [here](https://docs.rs/ed25519-dalek-fiat).
 
 # Installation
 
 To install, add the following to your project's `Cargo.toml`:
 
 ```toml
-[dependencies.ed25519-dalek]
-version = "1"
+ed25519-dalek-fiat = "0.1.0"
 ```
 
 # Benchmarks

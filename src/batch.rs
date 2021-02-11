@@ -193,14 +193,14 @@ fn zero_rng() -> ZeroRng {
 /// # Examples
 ///
 /// ```
-/// extern crate ed25519_dalek;
+/// extern crate ed25519_dalek_fiat;
 /// extern crate rand;
 ///
-/// use ed25519_dalek::verify_batch;
-/// use ed25519_dalek::Keypair;
-/// use ed25519_dalek::PublicKey;
-/// use ed25519_dalek::Signer;
-/// use ed25519_dalek::Signature;
+/// use ed25519_dalek_fiat::verify_batch;
+/// use ed25519_dalek_fiat::Keypair;
+/// use ed25519_dalek_fiat::PublicKey;
+/// use ed25519_dalek_fiat::Signer;
+/// use ed25519_dalek_fiat::Signature;
 /// use rand::rngs::OsRng;
 ///
 /// # fn main() {
