@@ -272,4 +272,5 @@ deterministic randomness can be enabled via the `batch_deterministic` feature.
 
 [curve25519-dalek]: https://github.com/dalek-cryptography/curve25519-dalek
 [curve25519-dalek-fiat]: https://github.com/novifinancial/curve25519-dalek-fiat
+[ed25519-dalek]: https://github.com/dalek-cryptography/ed25519-dalek
 [fiat crypto]: https://github.com/mit-plv/fiat-crypto
