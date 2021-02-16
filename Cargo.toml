@@ -19,7 +19,7 @@ exclude = [ ".gitignore", "TESTVECTORS", "res/*" ]
 features = ["nightly", "batch"]
 
 [dependencies]
-curve25519-dalek-fiat = { git = "https://github.com/novifinancial/curve25519-dalek.git", branch = "new-master", version = "0.1.0", default-features = false }
+curve25519-dalek-fiat = { version = "0.1.0", default-features = false }
 ed25519 = { version = "1", default-features = false }
 merlin = { version = "2", default-features = false, optional = true }
 rand = { version = "0.8", default-features = false, optional = true }
