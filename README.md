@@ -8,8 +8,7 @@ verification in Rust.
 
 # About
 
-This is a thin fork of the [`ed25519-dalek`][ed25519-dalek] project, authored by
-Isis Agora Lovecruft and Henry de Valence, and its main difference is replacing the 
+This is a thin fork of the [`ed25519-dalek`][ed25519-dalek] project, and its main difference is replacing the 
 original [`curve25519-dalek`][curve25519-dalek] dependency with 
 [`curve25519-dalek-fiat`][curve25519-dalek-fiat]. This allows using a formally verified
 backend supplied by the [`fiat-crypto`][fiat crypto] project, where 
