@@ -6,6 +6,15 @@
 Fast and efficient Rust implementation of ed25519 key generation, signing, and
 verification in Rust.
 
+# About
+
+This is a thin fork of the [`ed25519-dalek`][ed25519-dalek] project, authored by
+Isis Agora Lovecruft and Henry de Valence, and its main difference is replacing the 
+original [`curve25519-dalek`][curve25519-dalek] dependency with 
+[`curve25519-dalek-fiat`][curve25519-dalek-fiat]. This allows using a formally verified
+backend supplied by the [`fiat-crypto`][fiat crypto] project, where 
+primitive curve operations are extracted from Coq proofs of arithmetic correctness.
+
 # Documentation
 
 Documentation is available [here](https://docs.rs/ed25519-dalek-fiat).
@@ -260,3 +269,7 @@ noted above.
 
 The same notion of batch signature verification as above, but with purely
 deterministic randomness can be enabled via the `batch_deterministic` feature.
+
+[curve25519-dalek]: https://github.com/dalek-cryptography/curve25519-dalek
+[curve25519-dalek-fiat]: https://github.com/novifinancial/curve25519-dalek-fiat
+[fiat crypto]: https://github.com/mit-plv/fiat-crypto
