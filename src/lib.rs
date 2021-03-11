@@ -234,9 +234,9 @@
 #![no_std]
 #![warn(future_incompatible)]
 #![deny(missing_docs)] // refuse to compile if documentation is missing
-
 #![cfg(not(test))]
 #![forbid(unsafe_code)]
+#![feature(iterator_fold_self)]
 
 #[cfg(any(feature = "std", test))]
 #[macro_use]
@@ -247,7 +247,10 @@ pub extern crate ed25519;
 #[cfg(all(feature = "alloc", not(feature = "std")))]
 extern crate alloc;
 extern crate curve25519_dalek;
-#[cfg(all(any(feature = "batch", feature = "batch_deterministic"), any(feature = "std", feature = "alloc")))]
+#[cfg(all(
+    any(feature = "batch", feature = "batch_deterministic"),
+    any(feature = "std", feature = "alloc")
+))]
 extern crate merlin;
 #[cfg(any(feature = "batch", feature = "std", feature = "alloc", test))]
 extern crate rand;
@@ -256,18 +259,26 @@ extern crate serde_crate as serde;
 extern crate sha2;
 extern crate zeroize;
 
-#[cfg(all(any(feature = "batch", feature = "batch_deterministic"), any(feature = "std", feature = "alloc")))]
+mod aggregated_signature;
+#[cfg(all(
+    any(feature = "batch", feature = "batch_deterministic"),
+    any(feature = "std", feature = "alloc")
+))]
 mod batch;
 mod constants;
-mod keypair;
 mod errors;
+mod keypair;
 mod public;
 mod secret;
 mod signature;
 
 pub use curve25519_dalek::digest::Digest;
 
-#[cfg(all(any(feature = "batch", feature = "batch_deterministic"), any(feature = "std", feature = "alloc")))]
+pub use crate::aggregated_signature::*;
+#[cfg(all(
+    any(feature = "batch", feature = "batch_deterministic"),
+    any(feature = "std", feature = "alloc")
+))]
 pub use crate::batch::*;
 pub use crate::constants::*;
 pub use crate::errors::*;
