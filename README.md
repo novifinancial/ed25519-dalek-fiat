@@ -3,6 +3,9 @@
 Fast and efficient Rust implementation of ed25519 key generation, signing, and
 verification in Rust.
 
+This branch has also support for signature half-aggregation as defined in the CT-RSA 2021 paper "Non-interactive half-aggregation of EdDSA and
+variants of Schnorr signatures". The api is available under [aggregated_signature.rs](https://github.com/novifinancial/ed25519-dalek-fiat/blob/half-aggregation/src/aggregated_signature.rs), benchmarks in [benches/ed25519_benchmarks.rs](https://github.com/novifinancial/ed25519-dalek-fiat/blob/half-aggregation/benches/ed25519_benchmarks.rs) and tests in [tests/aggregated.rs](https://github.com/novifinancial/ed25519-dalek-fiat/blob/half-aggregation/tests/aggregated.rs)
+
 # Documentation
 
 Documentation is available [here](https://docs.rs/ed25519-dalek).
