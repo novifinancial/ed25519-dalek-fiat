@@ -280,7 +280,7 @@ impl QuasiAggregatedSignature {
                 .iter()
                 .map(|sig| sig.s)
                 .rev()
-                .fold_first(|acc, sig_scalar| (acc * e + sig_scalar))
+                .reduce(|acc, sig_scalar| (acc * e + sig_scalar))
                 .unwrap();
             let mut h = init_hash.clone(); // ha is already contained in h
             h.update(j.to_le_bytes());

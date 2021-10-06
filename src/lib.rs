@@ -236,7 +236,6 @@
 #![deny(missing_docs)] // refuse to compile if documentation is missing
 #![cfg(not(test))]
 #![forbid(unsafe_code)]
-#![feature(iterator_fold_self)]
 
 #[cfg(any(feature = "std", test))]
 #[macro_use]
