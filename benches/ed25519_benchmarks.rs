@@ -28,6 +28,7 @@ mod ed25519_benches {
     use rand::prelude::ThreadRng;
     use rand::thread_rng;
     use std::time::Duration;
+    use std::fmt;
 
     fn sign(c: &mut Criterion) {
         let mut csprng: ThreadRng = thread_rng();
@@ -213,60 +214,81 @@ mod ed25519_benches {
         }
     }
 
+    #[derive(Debug)]
+    struct Param(usize, usize);
+
+    impl fmt::Display for Param {
+        fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+            write!(f, "[n={} r={}]", self.0, self.1)
+        }
+    }
+
+    // These are benchmark params published in the CTRSA paper.
+    // Format is (n,r) pairs, and the order is meant to speed up
+    // arrival of results.
+    static PARAMS: [Param; 12] = [
+        Param(128,16), Param(256,32),              // c=0.57
+        Param(32, 8), Param(64,16), Param(128,32), // c=0.63
+        Param(16,8), Param(32,16), Param(64,32),   // c=0.77
+        Param(256,16), Param(512,32),              // c=0.53
+        Param(512,16), Param(1024,32),             // c=0.52
+    ];
+        
+    /// This benchmark method reproduces the results from Table 2 in the CTRSA paper.
     fn quasi_aggregate_signatures<M: measurement::Measurement>(c: &mut BenchmarkGroup<M>) {
-        static BATCH_SIZES: [usize; 5] = [16, 32, 64, 128, 256];
         let mut csprng: ThreadRng = thread_rng();
 
-        for size in BATCH_SIZES.iter() {
+        for param in PARAMS.iter() {
+            let (n,r) = (param.0,param.1);
             let keypairs: Vec<Keypair> =
-                (0..*size).map(|_| Keypair::generate(&mut csprng)).collect();
+                (0..n).map(|_| Keypair::generate(&mut csprng)).collect();
             let msg: Vec<u8> = {
                 let mut h = sha2::Sha256::new();
                 h.update(b"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
                 h.finalize().to_vec()
             };
-            let messages: Vec<&[u8]> = (0..*size).map(|_| &msg[..]).collect();
+            let messages: Vec<&[u8]> = (0..n).map(|_| &msg[..]).collect();
             let signatures: Vec<Signature> = keypairs.iter().map(|key| key.sign(&msg)).collect();
             let public_keys: Vec<PublicKey> = keypairs.iter().map(|key| key.public).collect();
             let msgs_and_pkeys: Vec<(&[u8], &PublicKey)> =
                 messages.iter().cloned().zip(&public_keys).collect();
 
             c.bench_with_input(
-                BenchmarkId::new("signature quasi-aggregation", *size),
-                &(msgs_and_pkeys, signatures),
+                BenchmarkId::new("signature quasi-aggregation", param),
+                &(msgs_and_pkeys, signatures, r),
                 |b, i| {
-                    b.iter(|| QuasiAggregatedSignature::aggregate(128, &i.0[..], &i.1));
+                    b.iter(|| QuasiAggregatedSignature::aggregate(i.2, &i.0[..], &i.1));
                 },
             );
         }
     }
 
+    /// This benchmark method reproduces the AggVerify results from Table 2 in the CTRSA paper.
     fn verify_quasi_aggregated_signatures<M: measurement::Measurement>(c: &mut BenchmarkGroup<M>) {
-        static BATCH_SIZES: [usize; 5] = [16, 32, 64, 128, 256];
         let mut csprng: ThreadRng = thread_rng();
-
-        for size in BATCH_SIZES.iter() {
+        for param in PARAMS.iter() {
+            let (n,r) = (param.0,param.1);
             let keypairs: Vec<Keypair> =
-                (0..*size).map(|_| Keypair::generate(&mut csprng)).collect();
+                (0..n).map(|_| Keypair::generate(&mut csprng)).collect();
             let msg: Vec<u8> = {
                 let mut h = sha2::Sha256::new();
                 h.update(b"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
                 h.finalize().to_vec()
             };
-            let messages: Vec<&[u8]> = (0..*size).map(|_| &msg[..]).collect();
+            let messages: Vec<&[u8]> = (0..n).map(|_| &msg[..]).collect();
             let signatures: Vec<Signature> = keypairs.iter().map(|key| key.sign(&msg)).collect();
             let public_keys: Vec<PublicKey> = keypairs.iter().map(|key| key.public).collect();
             let msgs_and_pkeys: Vec<(&[u8], &PublicKey)> =
                 messages.iter().cloned().zip(&public_keys).collect();
 
             let agg =
-                QuasiAggregatedSignature::aggregate(128, &msgs_and_pkeys[..], &signatures).unwrap();
+                QuasiAggregatedSignature::aggregate(r, &msgs_and_pkeys[..], &signatures).unwrap();
 
             c.bench_with_input(
-                BenchmarkId::new("quasi-aggregated signature verification", *size),
-                &(msgs_and_pkeys, agg),
+                BenchmarkId::new("quasi-aggregated signature verification", param),
+                &(msgs_and_pkeys, agg, r),
                 |b, i| {
-                    b.iter(|| QuasiAggregatedSignature::verify(128, &i.0[..], &i.1));
+                    b.iter(|| QuasiAggregatedSignature::verify(i.2, &i.0[..], &i.1));
                 },
             );
         }
